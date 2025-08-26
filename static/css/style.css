@@ -1,0 +1,147 @@
+/* Custom Styles for Travel Booking System */
+
+.hero-section {
+    background: linear-gradient(135deg, #0157d7 0%, #013481 100%);
+    border-radius: 15px;
+    margin: 20px 0;
+}
+
+.travel-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.travel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.badge-flight {
+    background-color: #0d6efd !important;
+}
+
+.badge-train {
+    background-color: #198754 !important;
+}
+
+.badge-bus {
+    background-color: #6f42c1 !important;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0a58ca 0%, #084298 100%);
+    transform: translateY(-1px);
+}
+
+.card-header {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section .lead {
+        font-size: 1rem;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Animation for alerts */
+.alert {
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Loading spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #0d6efd;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Pagination Styles */
+.pagination {
+    margin: 2rem 0;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+}
+
+.pagination .page-link {
+    color: #0d6efd;
+    border: 1px solid #dee2e6;
+    margin: 0 2px;
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+}
+
+.pagination .page-link:hover {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    color: #0a58ca;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+/* Responsive pagination */
+@media (max-width: 576px) {
+    .pagination .page-link {
+        padding: 0.375rem 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .pagination .page-item:not(:first-child):not(:last-child) {
+        display: none;
+    }
+
+    .pagination .page-item:first-child,
+    .pagination .page-item:last-child {
+        display: block;
+    }
+}

@@ -1,0 +1,47 @@
+{% extends 'booking_app/base.html' %}
+
+{% block content %}
+<div class="hero-section bg-primary text-white py-5 mb-5">
+    <div class="container text-center">
+        <h1 class="display-4">Book Your Next Adventure</h1>
+        <p class="lead">Find the best travel options for your journey</p>
+        <a href="{% url 'travel_list' %}" class="btn btn-light btn-lg">Explore Travel Options</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <h2 class="text-center mb-4">Featured Travel Options</h2>
+        <div class="row">
+            {% for travel in travel_options %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card travel-card h-100">
+                    <div class="card-body">
+                        <span
+                            class="badge bg-{% if travel.travel_type == 'flight' %}primary{% elif travel.travel_type == 'train' %}success{% else %}info{% endif %} float-end">
+                            {{ travel.get_travel_type_display }}
+                        </span>
+                        <h5 class="card-title">{{ travel.source }} → {{ travel.destination }}</h5>
+                        <p class="card-text">
+                            <i class="fas fa-calendar"></i> {{ travel.departure_datetime|date:"M d, Y" }}<br>
+                            <i class="fas fa-clock"></i> {{ travel.departure_datetime|time:"H:i" }}<br>
+                            <i class="fas fa-chair"></i> {{ travel.available_seats }} seats available<br>
+                            <strong>₹{{ travel.price }}</strong>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'book_travel' travel.travel_id %}" class="btn btn-primary w-100">
+                            Book Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No travel options available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

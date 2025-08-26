@@ -1,0 +1,58 @@
+{% extends 'booking_app/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">User Profile</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label">
+                            {{ field.label }}
+                            {% if field.field.required %}<span class="text-danger">*</span>{% endif %}
+                        </label>
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="text-danger">
+                            {% for error in field.errors %}
+                            <small>{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+
+                <hr>
+                <div class="mt-3">
+                    <h5>Account Information</h5>
+                    <p><strong>Username:</strong> {{ user.username }}</p>
+                    <p><strong>Date Joined:</strong> {{ user.date_joined|date:"M d, Y" }}</p>
+                    <p><strong>Last Login:</strong> {{ user.last_login|date:"M d, Y H:i" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    input[type="text"],
+    input[type="email"] {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 0.375rem;
+    }
+</style>
+{% endblock %}

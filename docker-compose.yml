@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8002:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=core.settings
+      - DATABASE_URL=mysql://travel_user:travel_password@mysql:3306/travel_booking
+      - DJANGO_DEBUG=0
+      - DJANGO_SECRET_KEY=django-insecure-bno-yu#$mrfqk5a7)vt6pg)^ioxk+u8ahfwng91&r05ah0lnbb
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=travel_booking
+      - MYSQL_USER=travel_user
+      - MYSQL_PASSWORD=travel_password
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - static_volume:/app/static
+    networks:
+      - travel_network
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=travel_booking
+      - MYSQL_USER=travel_user
+      - MYSQL_PASSWORD=travel_password
+      - MYSQL_ROOT_PASSWORD=root_password
+    ports:
+      - "3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init.sql:/docker-entrypoint-initdb.d/mysql-init.sql
+    networks:
+      - travel_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+    driver: local
+  static_volume:
+    driver: local
+
+networks:
+  travel_network:
+    driver: bridge
